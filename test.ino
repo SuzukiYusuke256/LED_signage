@@ -1,6 +1,6 @@
 // 
 int ledNum = 13;
-int interval = 500;
+int interval = 250;
 
 void setup(){
     pinMode(ledNum, OUTPUT);
