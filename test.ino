@@ -1,5 +1,7 @@
-// 
-int ledNum = 13;
+//
+#include "data.h"
+
+// int ledNum = 13;
 int interval = 250;
 
 void setup(){
@@ -8,7 +10,7 @@ void setup(){
 
 void loop(){
     delay(interval);
-    digitalWrite(ledNum,HIGH);
+    digitalWrite(pinNum[0],HIGH);
     delay(interval);
-    digitalWrite(ledNum,LOW);
+    digitalWrite(ledNum[0],LOW);
 }
