@@ -17,7 +17,8 @@ int count = 0;
 int interval = 1000;
 
 // 表示するフォントを作る
-char font1[MATRIX_LEN] = {0x81,0x42,0x24,0x18,0x18,0x24,0x42,0x81};
+// char font1[MATRIX_LEN] = {0x81,0x42,0x24,0x18,0x18,0x24,0x42,0x81};
+char font1[MATRIX_LEN] = {0x00,0x7e,0x02,0x14,0x18,0x10,0x10,0x20};
 char getDigitNum(char,char);
 
 void setup(){
@@ -48,11 +49,9 @@ void loop(){
     //     else{
     //         digitalWrite(pinNum[row[i]],LOW);
     //     }
-
     //     // 列ごとに点灯状況を変える
     //     for(int j=0; j<MATRIX_LEN; j++){
     //         // digitalWrite(pinNum[row[3]],LOW);
-
     //         if(j%2 == count){
     //             digitalWrite(pinNum[col[j]],HIGH);
     //         }
@@ -66,52 +65,73 @@ void loop(){
 
     // 文字を表示する
     for(int i=0; i<MATRIX_LEN; i++){
+        // LEDの点灯状態を初期化
+        for(int j=0; j<MATRIX_LEN; j++){
+            digitalWrite(pinNum[row[j]],LOW);
+            digitalWrite(pinNum[col[j]],LOW);
+        }
 
-        // 列ごとに点灯状況を変える
-        for(char j=0; j<MATRIX_LEN; j++){
+        delay(0.5); // 画面を全消去する時間を設ける
 
-            if (i==0){
-                digitalWrite(pinNum[row[0]],LOW);
-                if(j%2 == count){
-                    digitalWrite(pinNum[col[j]],HIGH);
-                }
-                else{
-                    digitalWrite(pinNum[col[j]],LOW);           
-                }
-            }
-            else if(i == 1){
-                digitalWrite(pinNum[row[1]],LOW);
-                if(j%2 != count){
-                    digitalWrite(pinNum[col[j]],HIGH);
-                }
-                else{
-                    digitalWrite(pinNum[col[j]],LOW);           
-                }
-            }
+        digitalWrite(pinNum[row[i]],HIGH);
+        
+        for(int j=0; j<MATRIX_LEN; j++){
 
-            // if(getDigitNum(font1[0],0) == 1){
-            //     digitalWrite(pinNum[col[j]],HIGH);
-            // }
-            // else{
-            //     digitalWrite(pinNum[col[j]],LOW);          
-            // }
-            if(i == 0 && j == 0){
-                digitalWrite(pinNum[col[j]],HIGH);
+            if(getDigitNum(font1[i],j) == 1){
+                digitalWrite(pinNum[col[j]],LOW);
             }
             else{
-                digitalWrite(pinNum[col[j]],LOW);          
+                digitalWrite(pinNum[col[j]],HIGH);          
             }
- 
         }
-        delay(3);
+
+
+
+        // // 列ごとに点灯状況を変える
+        // for(char j=0; j<MATRIX_LEN; j++){
+
+        //     if (i==0){
+        //         digitalWrite(pinNum[row[0]],LOW);
+        //         if(j%2 == count){
+        //             digitalWrite(pinNum[col[j]],HIGH);
+        //         }
+        //         else{
+        //             digitalWrite(pinNum[col[j]],LOW);           
+        //         }
+        //     }
+        //     else if(i == 1){
+        //         digitalWrite(pinNum[row[1]],LOW);
+        //         if(j%2 != count){
+        //             digitalWrite(pinNum[col[j]],HIGH);
+        //         }
+        //         else{
+        //             digitalWrite(pinNum[col[j]],LOW);           
+        //         }
+        //     }
+
+        //     // if(getDigitNum(font1[0],0) == 1){
+        //     //     digitalWrite(pinNum[col[j]],HIGH);
+        //     // }
+        //     // else{
+        //     //     digitalWrite(pinNum[col[j]],LOW);          
+        //     // }
+        //     if(i == 0 && j == 0){
+        //         digitalWrite(pinNum[col[j]],HIGH);
+        //     }
+        //     else{
+        //         digitalWrite(pinNum[col[j]],LOW);          
+        //     }
+ 
+        // }
+        delay(2.5);
     }
 
-    // delay(3);
+    delay(2.5);
 }
 
 // フォントの各行の各要素の値を調べる
 char getDigitNum(char num, char col){
     // 目的の桁だけを&シフト演算で取り出し、ずらした分を元に戻すと1か0が出てくる
     // 列は左から数えていることに注意
-    return (num & (0000001 << MATRIX_LEN-col)) >> col;
+    return ((num & (00000001 << MATRIX_LEN-col-1)) >> MATRIX_LEN-col-1);
 }
