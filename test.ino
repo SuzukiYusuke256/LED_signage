@@ -17,12 +17,12 @@ int count = 0;
 int interval = 1000;
 
 // 表示するフォントを作る
-// char font1[MATRIX_LEN] = {0x81,0x42,0x24,0x18,0x18,0x24,0x42,0x81};
-char font1[MATRIX_LEN] = {0x00,0x7e,0x02,0x14,0x18,0x10,0x10,0x20};
+char font1[MATRIX_LEN] = {0x00,0x02,0x04,0x08,0x78,0x08,0x08,0x08};
+// char font1[MATRIX_LEN] = {0x00,0x7e,0x02,0x14,0x18,0x10,0x10,0x20};
 char getDigitNum(char,char);
 
 void setup(){
-    for(int i=0; i<17; i++){
+    for(int i=1; i<17; i++){
         pinMode(pinNum[i], OUTPUT); 
     }
     for(int i=1; i<MATRIX_LEN; i++){
@@ -32,6 +32,7 @@ void setup(){
 }
 
 void loop(){
+    // digitalWrite(pinNum[col[0]],HIGH);
     // カウンタの処理
     if(count == 0){
         count = 1;
@@ -40,28 +41,28 @@ void loop(){
         count = 0;
     }
 
-    // LEDを一部だけ点灯させる
-    // 行ごとに点灯状況を変える
-    // for(int i=0; i<MATRIX_LEN; i++){
-    //     if(i%2 == count){
-    //         digitalWrite(pinNum[row[i]],HIGH);
-    //     }
-    //     else{
-    //         digitalWrite(pinNum[row[i]],LOW);
-    //     }
-    //     // 列ごとに点灯状況を変える
-    //     for(int j=0; j<MATRIX_LEN; j++){
-    //         // digitalWrite(pinNum[row[3]],LOW);
-    //         if(j%2 == count){
-    //             digitalWrite(pinNum[col[j]],HIGH);
-    //         }
-    //         else{
-    //             digitalWrite(pinNum[col[j]],LOW);           
-    //         }
-    //         // delay(1);
-    //     }
-    //     // delay(1);
-    // }
+    // // LEDを一部だけ点灯させる
+    // // 行ごとに点灯状況を変える
+    // // for(int i=0; i<MATRIX_LEN; i++){
+    // //     if(i%2 == count){
+    // //         digitalWrite(pinNum[row[i]],HIGH);
+    // //     }
+    // //     else{
+    // //         digitalWrite(pinNum[row[i]],LOW);
+    // //     }
+    // //     // 列ごとに点灯状況を変える
+    // //     for(int j=0; j<MATRIX_LEN; j++){
+    // //         // digitalWrite(pinNum[row[3]],LOW);
+    // //         if(j%2 == count){
+    // //             digitalWrite(pinNum[col[j]],HIGH);
+    // //         }
+    // //         else{
+    // //             digitalWrite(pinNum[col[j]],LOW);           
+    // //         }
+    // //         // delay(1);
+    // //     }
+    // //     // delay(1);
+    // // }
 
     // 文字を表示する
     for(int i=0; i<MATRIX_LEN; i++){
@@ -84,45 +85,6 @@ void loop(){
                 digitalWrite(pinNum[col[j]],HIGH);          
             }
         }
-
-
-
-        // // 列ごとに点灯状況を変える
-        // for(char j=0; j<MATRIX_LEN; j++){
-
-        //     if (i==0){
-        //         digitalWrite(pinNum[row[0]],LOW);
-        //         if(j%2 == count){
-        //             digitalWrite(pinNum[col[j]],HIGH);
-        //         }
-        //         else{
-        //             digitalWrite(pinNum[col[j]],LOW);           
-        //         }
-        //     }
-        //     else if(i == 1){
-        //         digitalWrite(pinNum[row[1]],LOW);
-        //         if(j%2 != count){
-        //             digitalWrite(pinNum[col[j]],HIGH);
-        //         }
-        //         else{
-        //             digitalWrite(pinNum[col[j]],LOW);           
-        //         }
-        //     }
-
-        //     // if(getDigitNum(font1[0],0) == 1){
-        //     //     digitalWrite(pinNum[col[j]],HIGH);
-        //     // }
-        //     // else{
-        //     //     digitalWrite(pinNum[col[j]],LOW);          
-        //     // }
-        //     if(i == 0 && j == 0){
-        //         digitalWrite(pinNum[col[j]],HIGH);
-        //     }
-        //     else{
-        //         digitalWrite(pinNum[col[j]],LOW);          
-        //     }
- 
-        // }
         delay(2.5);
     }
 
